@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Trade from "./Trade";
 import AdminFeed from "./AdminFeed";
 import SettlementTable from "./SettlementTable";
 import { downloadResults } from "../utils/download";

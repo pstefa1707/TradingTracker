@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import socket from "../socket"; // Import the socket instance
 
 const JoinComponent = ({ setSessionState }) => {
