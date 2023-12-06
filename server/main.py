@@ -3,6 +3,10 @@ from flask_socketio import SocketIO, join_room, leave_room
 from flask_cors import CORS
 from Trading import TradingSession, Trade, User  # Ensure correct import paths
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -136,4 +140,7 @@ def settle_market():
     return "error", 404  
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, port=5000)
+    if os.environ['DEBUG'] == "1":
+        socketio.run(app, debug=True, port=5000)
+    else:
+        socketio.run(app, port=5000)
