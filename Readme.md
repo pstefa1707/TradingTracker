@@ -17,3 +17,13 @@ The host can download the data as a JSON file, containing every trade and breakd
 ### Backend
 1. `cd server`
 2. `docker compose up`
+
+
+## Screenshots
+### Admin UI
+![Pre-Settlement](./images/image-2.png)
+![Post-Settlement](./images/image-3.png)
+
+### User UI
+![User Trade Submission UI](./images/image.png)
+![User Past Trades UI](./images/image-1.png)
