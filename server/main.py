@@ -140,7 +140,4 @@ def settle_market():
     return "error", 404  
 
 if __name__ == '__main__':
-    if os.environ['DEBUG'] == "1":
-        socketio.run(app, debug=True, port=5000)
-    else:
-        socketio.run(app, port=5000)
+    socketio.run(app, debug=True, port=5000, host="0.0.0.0")

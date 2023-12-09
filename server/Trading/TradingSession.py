@@ -3,8 +3,6 @@ from .Trade import Trade
 from .User import User
 from dataclasses import asdict
 
-
-
 class TradingSession:
     def __init__(self, title : str, tick_size : float, unit: str, admin_pass: str):
         # User-defined attributes
