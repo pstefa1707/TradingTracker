@@ -12,7 +12,7 @@ jobs:
 
     # Set an environment variable for the timestamp
     env:
-      IMAGE_TAG: trading-tracker-${{ github.run_id }}
+      IMAGE_TAG: trading-tracker-7157097126
 
     steps:
       - uses: actions/checkout@v3
