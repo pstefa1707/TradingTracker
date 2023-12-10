@@ -1,0 +1,26 @@
+name: Sync Server Directory to Branch
+
+on:
+  push:
+    branches:
+      - main  # Set this to the branch you want to sync from
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Sync server directory
+        run: |
+          git config --global user.email "github-action@example.com"
+          git config --global user.name "Github Action"
+          git remote update
+          git fetch --all
+          git checkout -b server-branch origin/server-branch || git checkout -b server-branch
+          git rm -r *
+          cp -r ../server/* .
+          git add .
+          git commit -m "Update server-branch with latest server directory contents" || echo "No changes to commit"
+          git push origin server-branch
