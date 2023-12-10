@@ -47,8 +47,18 @@ def join_as_admin():
     tick_size = 1 # data['tick_size'] (default to 1)
     unit = data.get('unit')
     
+    if len(trading_sessions) > 100:
+        last_session = list(trading_sessions.keys())[0]
+        del trading_sessions[last_session]
+        
     new_session = TradingSession(title=session_title, tick_size=tick_size, unit=unit, admin_pass=admin_pass)
     session_id = new_session.get_id()
+    
+    # Avoid overlap
+    while session_id in trading_sessions:
+        new_session = TradingSession(title=session_title, tick_size=tick_size, unit=unit, admin_pass=admin_pass)
+        session_id = new_session.get_id()
+        
     trading_sessions[session_id] = new_session
     
     return {'session_id': session_id, 'admin_pass': admin_pass, 'admin': True, **new_session.__dict__()}, 200
