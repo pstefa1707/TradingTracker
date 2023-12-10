@@ -2,28 +2,28 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Build the Docker image
-      run: docker build ./server --file Dockerfile --tag trading-tracker:$(date +%s)
+      - uses: actions/checkout@v3
 
-    # Login to Digital Ocean Container Registry
-    - name: Login to Digital Ocean Container Registry
-      run: echo ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} | docker login registry.digitalocean.com -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin
+      - name: Build the Docker image
+        run: docker build -f ./server/Dockerfile ./server --tag trading-tracker:$(date +%s)
 
-    # Tag the image for the registry
-    - name: Tag the Docker image
-      run: docker tag trading-tracker:$(date +%s) registry.digitalocean.com/my-container-registry/trading-tracker:latest
+      # Login to Digital Ocean Container Registry
+      - name: Login to Digital Ocean Container Registry
+        run: echo ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} | docker login registry.digitalocean.com -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin
 
-    # Push the image to the registry
-    - name: Push the Docker image to the registry
-      run: docker push registry.digitalocean.com/my-container-registry/trading-tracker:latest
+      # Tag the image for the registry
+      - name: Tag the Docker image
+        run: docker tag trading-tracker:$(date +%s) registry.digitalocean.com/my-container-registry/trading-tracker:latest
+
+      # Push the image to the registry
+      - name: Push the Docker image to the registry
+        run: docker push registry.digitalocean.com/my-container-registry/trading-tracker:latest
