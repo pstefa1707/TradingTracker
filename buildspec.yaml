@@ -21,6 +21,25 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"server-server","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - |
+        cat <<EOF > Dockerrun.aws.json
+        {
+          "AWSEBDockerrunVersion": "1",
+          "Image": {
+            "Name": "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/trading-tracker-repo:$IMAGE_TAG",
+            "Update": "true"
+          },
+          "Ports": [
+            {
+              "ContainerPort": "8000"
+            }
+          ],
+          "Logging": "/var/log/nginx"
+        }
+        EOF
+      - echo "Dockerrun.aws.json created"
 
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - imagedefinitions.json
+    - Dockerrun.aws.json
