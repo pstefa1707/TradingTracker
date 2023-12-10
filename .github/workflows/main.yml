@@ -19,8 +19,8 @@ jobs:
           git remote update
           git fetch --all
           git checkout -b server-branch origin/server-branch || git checkout -b server-branch
-          git rm -r *
-          cp -r ../server/* .
+          cp -r ./server/* .
+          git rm -rf ./frontend
           git add .
           git commit -m "Update server-branch with latest server directory contents" || echo "No changes to commit"
           git push origin server-branch
