@@ -18,10 +18,26 @@ phases:
 
   post_build:
     commands:
+      - cd ..
       - echo Pushing the Docker image...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"server-server","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > ../imagedefinitions.json
+      - printf '[{"name":"server-server","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - >
+      cat << EOF > Dockerrun.aws.json
+      {
+        "AWSEBDockerrunVersion": "1",
+        "Image": {
+          "Name": $REPOSITORY_URI:$IMAGE_TAG",
+          "Update": "true"
+        },
+        "Ports": [
+          {
+            "ContainerPort": "8000"
+          }
+        ]
+      }
+      EOF
 
 artifacts:
   files: imagedefinitions.json
