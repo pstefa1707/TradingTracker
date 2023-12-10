@@ -1,4 +1,7 @@
 # Trading Tracker
+## Production Deployment
+Accessible at: [https://trading-tracker.pstefa.com/](https://trading-tracker.pstefa.com/)
+
 ## Description
 This is a simple trading tracker that acts similarly to a Kahoot. It allows a host to start a trading session around a given quantity, lets say "Height of the Empire State Building", with unit "M". 
 
