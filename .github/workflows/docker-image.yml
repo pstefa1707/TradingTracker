@@ -10,11 +10,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Set an environment variable for the timestamp
+    env:
+      IMAGE_TAG: trading-tracker-${{ github.run_id }}
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Build the Docker image
-        run: docker build -f ./server/Dockerfile ./server --tag trading-tracker:$(date +%s)
+        run: docker build -f ./server/Dockerfile ./server --tag --tag $IMAGE_TAG
 
       # Login to Digital Ocean Container Registry
       - name: Login to Digital Ocean Container Registry
@@ -22,8 +26,8 @@ jobs:
 
       # Tag the image for the registry
       - name: Tag the Docker image
-        run: docker tag trading-tracker:$(date +%s) registry.digitalocean.com/my-container-registry/trading-tracker:latest
+        run: docker tag $IMAGE_TAG registry.digitalocean.com/my-container-registry/$IMAGE_TAG
 
       # Push the image to the registry
       - name: Push the Docker image to the registry
-        run: docker push registry.digitalocean.com/my-container-registry/trading-tracker:latest
+        run: docker push registry.digitalocean.com/my-container-registry/$IMAGE_TAG
