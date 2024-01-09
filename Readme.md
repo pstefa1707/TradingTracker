@@ -15,7 +15,7 @@ The host can download the data as a JSON file, containing every trade and breakd
 2. `cd frontend`
 3. `npm install`
 4. `export REACT_APP_BACKEND_URL=http://localhost:8000`
-5. `npm start`
+5. `npm run start`
 
 ### Backend
 1. `cd server`
